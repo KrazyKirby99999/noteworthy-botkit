@@ -65,7 +65,11 @@ import noteworthy.botkit as botkit
 import noteworthy.botkit.response as response
 import noteworthy.botkit.cache as cache
 
-@botkit.botkit_controller(bot_name='dicebot', bot_prefix='!dice')
+client_args = {
+    "bot_prefix":'!dice',
+}
+
+@botkit.botkit_controller(bot_name='dicebot', client_args=client_args)
 class DiceBotController():
 
     AUTH = botkit.auth.PublicBot
