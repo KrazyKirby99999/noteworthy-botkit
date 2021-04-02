@@ -16,11 +16,13 @@ class Bot():
         self.prefix = controller.CLIENT_ARGS["bot_prefix"]
         self.user = creds['user']
         self.password = creds['password']
-        async_client_args = {}
         allowed_AsyncClient_args = ["homeserver", "user", "device_id", "store_path", "config", "ssl", "proxy"]
-        for arg in controller.CLIENT_ARGS:
-            if arg in allowed_AsyncClient_args:
-                async_client_args[arg] = controller.CLIENT_ARGS[arg]
+        async_client_args = {
+            arg: controller.CLIENT_ARGS[arg]
+            for arg in controller.CLIENT_ARGS
+            if arg in allowed_AsyncClient_args
+        }
+
         self.client = AsyncClient(creds['homeserver'], creds['user'], **async_client_args)
         self.client.add_event_callback(self.invite_cb, InviteMemberEvent)
         self.client.add_event_callback(self.message_cb, RoomMessageText)
@@ -29,10 +31,7 @@ class Bot():
             self.AUTH = controller.AUTH(controller)
         else:
             self.AUTH = BlockAll(controller)
-        if hasattr(controller, 'CACHE'):
-            self.CACHE = controller.CACHE
-        else:
-            self.CACHE = NoCache()
+        self.CACHE = controller.CACHE if hasattr(controller, 'CACHE') else NoCache()
         
 
     def _setup_handlers(self, controller):
