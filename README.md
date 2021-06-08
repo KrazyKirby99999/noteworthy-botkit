@@ -1,5 +1,8 @@
 # noteworthy-botkit
 
+## (Deprecated in favor of [Simple-Matrix-Bot-Lib](https://github.com/KrazyKirby99999/simple-matrix-bot-lib))
+
+
 noteworthy-botkit is a library for quickly building Matrix bots. It uses [matrix-nio](https://github.com/poljar/matrix-nio) as its Matrix client library.
 
 ## Examples
